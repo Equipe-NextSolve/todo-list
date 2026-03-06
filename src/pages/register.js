@@ -2,6 +2,7 @@ import { useState } from "react"
 import { auth } from "../services/firebase"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { useRouter } from "next/router"
+import styles from "../styles/register.module.css"
 
 export default function Register() {
 
@@ -14,29 +15,39 @@ export default function Register() {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password)
-      router.push("/dashboard")
+      router.push("/login")
     } catch (error) {
       alert(error.message)
     }
   }
 
   return (
-    <form onSubmit={handleRegister}>
-      <h2>Cadastro</h2>
+    <div className={styles.container}>
 
-      <input
-        type="email"
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
+      <form className={styles.form} onSubmit={handleRegister}>
 
-      <input
-        type="password"
-        placeholder="Senha"
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <h2 className={styles.title}>Cadastro</h2>
 
-      <button type="submit">Cadastrar</button>
-    </form>
+        <input
+          className={styles.input}
+          type="email"
+          placeholder="Digite seu email"
+          onChange={(e)=>setEmail(e.target.value)}
+        />
+
+        <input
+          className={styles.input}
+          type="password"
+          placeholder="Digite sua senha"
+          onChange={(e)=>setPassword(e.target.value)}
+        />
+
+        <button className={styles.button}>
+          Criar conta
+        </button>
+
+      </form>
+
+    </div>
   )
 }
