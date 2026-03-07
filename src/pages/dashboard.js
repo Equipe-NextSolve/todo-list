@@ -1,10 +1,15 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { useRouter } from 'next/router';
-import { useAuth } from '../context/AuthContext';
-import TodoForm from '../components/TodoForm';
-import TodoList from '../components/TodoList';
-import { addTodo, getTodos, updateTodoStatus, deleteTodo } from '../services/todoService';
-import styles from '../styles/dashboard.module.css';
+import React, { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/router";
+import { useAuth } from "../context/AuthContext";
+import TodoForm from "../components/TodoForm";
+import TodoList from "../components/TodoList";
+import {
+  addTodo,
+  getTodos,
+  updateTodoStatus,
+  deleteTodo,
+} from "../services/todoService";
+import styles from "../styles/dashboard.module.css";
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -17,13 +22,13 @@ const Dashboard = () => {
       const todosData = await getTodos(user.uid);
       setTodos(todosData);
     } catch (error) {
-      console.error('Error fetching todos:', error);
+      console.error("Error fetching todos:", error);
     }
   }, [user]);
 
   useEffect(() => {
     if (!user) {
-      router.push('/login');
+      router.push("/login");
     }
   }, [user, router]);
 
@@ -38,7 +43,7 @@ const Dashboard = () => {
       await addTodo(user.uid, title);
       fetchTodos();
     } catch (error) {
-      console.error('Error adding todo:', error);
+      console.error("Error adding todo:", error);
     }
   };
 
@@ -47,7 +52,7 @@ const Dashboard = () => {
       await updateTodoStatus(user.uid, todoId, completed);
       fetchTodos();
     } catch (error) {
-      console.error('Error updating todo:', error);
+      console.error("Error updating todo:", error);
     }
   };
 
@@ -56,7 +61,7 @@ const Dashboard = () => {
       await deleteTodo(user.uid, todoId);
       fetchTodos();
     } catch (error) {
-      console.error('Error deleting todo:', error);
+      console.error("Error deleting todo:", error);
     }
   };
 
@@ -65,11 +70,24 @@ const Dashboard = () => {
   }
 
   return (
-    <div className={styles.dashboard}>
-      <h1>Todo List</h1>
-      <button onClick={logout}>Logout</button>
-      <TodoForm onAddTodo={handleAddTodo} />
-      <TodoList todos={todos} onUpdateStatus={handleUpdateStatus} onDelete={handleDelete} />
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="bg-white shadow-lg rounded-lg p-8 max-w-2xl w-full">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold text-gray-800">Todo List</h1>
+          <button
+            onClick={logout}
+            className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-md transition duration-200"
+          >
+            Logout
+          </button>
+        </div>
+        <TodoForm onAddTodo={handleAddTodo} />
+        <TodoList
+          todos={todos}
+          onUpdateStatus={handleUpdateStatus}
+          onDelete={handleDelete}
+        />
+      </div>
     </div>
   );
 };
