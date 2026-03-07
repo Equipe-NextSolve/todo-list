@@ -1,0 +1,47 @@
+.dashboard {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.form {
+  margin-bottom: 20px;
+}
+
+.form input {
+  padding: 10px;
+  width: 70%;
+  margin-right: 10px;
+}
+
+.form button {
+  padding: 10px 20px;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.todo-item input {
+  margin-right: 10px;
+}
+
+.todo-item span {
+  flex: 1;
+}
+
+.todo-item button {
+  margin-left: 10px;
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
