@@ -2,7 +2,6 @@ import { useState } from "react"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../services/firebase"
 import { useRouter } from "next/router"
-import Link from "next/link"
 import styles from "../styles/login.module.css"
 
 export default function Login() {
@@ -46,19 +45,6 @@ export default function Login() {
         <button className={styles.button}>
           Entrar
         </button>
-
-        <p className={styles.forgotPasswordText}>
-          <Link href="/forgot-password">
-            Esqueceu a senha?
-          </Link>
-        </p>
-
-        <p className={styles.registerText}>
-          Não possui conta?{" "}
-          <Link href="/register">
-            Cadastre-se
-          </Link>
-        </p>
 
       </form>
 
