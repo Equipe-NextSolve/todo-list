@@ -7,6 +7,7 @@ import {
   addTodo,
   getTodos,
   updateTodoStatus,
+  updateTodoTitle,
   deleteTodo,
 } from "../services/todoService";
 import styles from "../styles/dashboard.module.css";
@@ -70,6 +71,31 @@ const Dashboard = () => {
     }
   };
 
+  const handleEdit = async (todoId, currentTitle) => {
+    const newTitle = window.prompt("Editar tarefa:", currentTitle);
+    if (newTitle && newTitle.trim() !== currentTitle) {
+      // Atualizar localmente primeiro
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.id === todoId ? { ...todo, title: newTitle.trim() } : todo,
+        ),
+      );
+
+      try {
+        await updateTodoTitle(user.uid, todoId, newTitle.trim());
+        fetchTodos();
+      } catch (error) {
+        console.error("Error updating todo title:", error);
+        // Reverter
+        setTodos((prevTodos) =>
+          prevTodos.map((todo) =>
+            todo.id === todoId ? { ...todo, title: currentTitle } : todo,
+          ),
+        );
+      }
+    }
+  };
+
   const handleDelete = async (todoId) => {
     try {
       await deleteTodo(user.uid, todoId);
@@ -99,6 +125,7 @@ const Dashboard = () => {
         <TodoList
           todos={todos}
           onUpdateStatus={handleUpdateStatus}
+          onEdit={handleEdit}
           onDelete={handleDelete}
         />
       </div>

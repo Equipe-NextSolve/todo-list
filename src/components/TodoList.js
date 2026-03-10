@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/dashboard.module.css";
 
-const TodoList = ({ todos, onUpdateStatus, onDelete }) => {
+const TodoList = ({ todos, onUpdateStatus, onEdit, onDelete }) => {
   return (
     <ul className="space-y-4">
       {todos.map((todo) => (
@@ -22,12 +22,20 @@ const TodoList = ({ todos, onUpdateStatus, onDelete }) => {
           >
             {todo.title}
           </span>
-          <button
-            onClick={() => onDelete(todo.id)}
-            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md transition duration-200"
-          >
-            Excluir
-          </button>
+          <div className="flex space-x-2">
+            <button
+              onClick={() => onEdit(todo.id, todo.title)}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md text-sm transition duration-200 transform hover:scale-105"
+            >
+              Editar
+            </button>
+            <button
+              onClick={() => onDelete(todo.id)}
+              className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md text-sm transition duration-200 transform hover:scale-105"
+            >
+              Excluir
+            </button>
+          </div>
         </li>
       ))}
     </ul>
