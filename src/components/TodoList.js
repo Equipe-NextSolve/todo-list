@@ -13,10 +13,12 @@ const TodoList = ({ todos, onUpdateStatus, onDelete }) => {
             type="checkbox"
             checked={todo.completed}
             onChange={(e) => onUpdateStatus(todo.id, e.target.checked)}
-            className="mr-4"
+            className="mr-4 w-4 h-4 transition-all duration-300 ease-in-out transform hover:scale-110"
           />
           <span
-            className={`flex-1 text-gray-800 ${todo.completed ? "line-through opacity-50" : ""}`}
+            className={`flex-1 text-gray-800 transition-all duration-300 ease-in-out ${
+              todo.completed ? "line-through opacity-50" : ""
+            }`}
           >
             {todo.title}
           </span>

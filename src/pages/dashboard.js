@@ -48,11 +48,25 @@ const Dashboard = () => {
   };
 
   const handleUpdateStatus = async (todoId, completed) => {
+    // Otimizar: atualizar estado local primeiro
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === todoId ? { ...todo, completed } : todo,
+      ),
+    );
+
     try {
       await updateTodoStatus(user.uid, todoId, completed);
+      // Após sucesso, refetch para garantir consistência
       fetchTodos();
     } catch (error) {
       console.error("Error updating todo:", error);
+      // Reverter em caso de erro
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.id === todoId ? { ...todo, completed: !completed } : todo,
+        ),
+      );
     }
   };
 
