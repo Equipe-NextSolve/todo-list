@@ -40,3 +40,33 @@
 .button:hover {
   background-color: #0059c1;
 }
+
+.forgotPasswordText {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.forgotPasswordText a {
+  color: #0070f3;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.forgotPasswordText a:hover {
+  text-decoration: underline;
+}
+
+.registerText {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.registerText a {
+  color: #0070f3;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.registerText a:hover {
+  text-decoration: underline;
+}

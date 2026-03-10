@@ -2,6 +2,7 @@ import { useState } from "react"
 import { auth } from "../services/firebase"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { useRouter } from "next/router"
+import Link from "next/link"
 import styles from "../styles/register.module.css"
 
 export default function Register() {
@@ -45,6 +46,13 @@ export default function Register() {
         <button className={styles.button}>
           Criar conta
         </button>
+
+        <p className={styles.loginText}>
+          Já tem uma conta?{" "}
+          <Link href="/login">
+            Login
+          </Link>
+        </p>
 
       </form>
 
