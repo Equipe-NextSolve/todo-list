@@ -13,7 +13,7 @@ import {
 import styles from "../styles/dashboard.module.css";
 
 const Dashboard = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, loading, renewSession } = useAuth();
   const router = useRouter();
   const [todos, setTodos] = useState([]);
 
@@ -28,16 +28,17 @@ const Dashboard = () => {
   }, [user]);
 
   useEffect(() => {
-    if (!user) {
+    if (!loading && !user) {
       router.push("/login");
     }
-  }, [user, router]);
+  }, [user, loading, router]);
 
   useEffect(() => {
     if (user) {
+      renewSession(); // Renovar a sessão ao carregar a página
       fetchTodos();
     }
-  }, [user, fetchTodos]);
+  }, [user, renewSession, fetchTodos]);
 
   const handleAddTodo = async (title) => {
     try {
