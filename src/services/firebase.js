@@ -1,5 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import {
+  getAuth,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -9,10 +13,11 @@ const firebaseConfig = {
   storageBucket: "todo-list-nextsolve.firebasestorage.app",
   messagingSenderId: "923355504459",
   appId: "1:923355504459:web:b4ea49628ee362b3bad2ce",
-  measurementId: "G-BHXYRZ2MRQ"
+  measurementId: "G-BHXYRZ2MRQ",
 };
 
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
+setPersistence(auth, browserLocalPersistence);
 export const db = getFirestore(app);
