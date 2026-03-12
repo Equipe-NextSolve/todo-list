@@ -9,6 +9,7 @@ import styles from "../styles/login.module.css";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
   const { user, loading } = useAuth();
 
@@ -20,12 +21,21 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/dashboard");
     } catch (error) {
-      alert(error.message);
+
+      if (error.code === "auth/invalid-credential"){
+        setError("Email/Senha incorreta!");
+      } else if(error.code === "auth/invalid-email"){
+        setError("Email/Senha inválidos!");
+      } else{
+        alert(error.message);
+      }
+
     }
   };
 
@@ -33,6 +43,8 @@ export default function Login() {
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleLogin}>
         <h2 className={styles.title}>Login</h2>
+
+        {error && <p className={styles.error}>{error}</p>}
 
         <input
           className={styles.input}

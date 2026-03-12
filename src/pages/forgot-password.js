@@ -8,11 +8,13 @@ import styles from "../styles/forgot-password.module.css";
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
     setMessage("");
+    setError("");
 
     if (!email) {
       alert("Por favor, insira seu e-mail.");
@@ -21,11 +23,13 @@ export default function ForgotPassword() {
 
     try {
       await sendPasswordResetEmail(auth, email);
-      setMessage("Um e-mail de redefinição de senha foi enviado. Verifique sua caixa de entrada.");
-      setTimeout(() => router.push("/login"), 5000);
+      setMessage("Se este e-mail estiver cadastrado, você receberá um link de redefinição. Verifique sua caixa de entrada/spam.");
+      setTimeout(() => router.push("/login"), 10000);
     } catch (error) {
       if (error.code === 'auth/user-not-found') {
-        alert("Não há usuário cadastrado com este e-mail.");
+        setError("Não há usuário cadastrado com este e-mail.");
+      } else if (error.code === 'auth/invalid-email') {
+        setError("Digite um e-mail válido.");
       } else {
         alert(error.message);
       }
@@ -41,6 +45,7 @@ export default function ForgotPassword() {
         </p>
         
         {message && <p className={styles.successMessage}>{message}</p>}
+        {error && <p className={styles.error}>{error}</p>}
 
         <input
           className={styles.input}
