@@ -9,6 +9,7 @@ import styles from "../styles/register.module.css";
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
   const { user, loading } = useAuth();
 
@@ -20,12 +21,21 @@ export default function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setError("");
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       router.push("/login");
     } catch (error) {
-      alert(error.message);
+
+      if (error.code === "auth/email-already-in-use") {
+        setError("Este email já está cadastrado.");
+      } else if (error.code === "auth/weak-password") {
+        setError("A senha precisa ter pelo menos 6 caracteres.");
+      } else {
+        alert(error.message);
+      }
+
     }
   };
 
@@ -33,6 +43,8 @@ export default function Register() {
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleRegister}>
         <h2 className={styles.title}>Cadastro</h2>
+
+        {error && <p className={styles.error}>{error}</p>}
 
         <input
           className={styles.input}
