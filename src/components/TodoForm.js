@@ -13,7 +13,10 @@ const TodoForm = ({ onAddTodo }) => {
   };
 
   return (
-    <form className="flex gap-4 mb-6" onSubmit={handleSubmit}>
+    <form
+      className={`flex gap-4 mb-6 ${styles["flex-form-mobile"]}`}
+      onSubmit={handleSubmit}
+    >
       <input
         type="text"
         value={title}

@@ -1,3 +1,21 @@
+@media (max-width: 500px) {
+  .form,
+  .flex-form-mobile {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    align-items: stretch !important;
+  }
+  .form input,
+  .flex-form-mobile input,
+  .form button,
+  .flex-form-mobile button {
+    width: 100% !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    box-sizing: border-box;
+  }
+}
+
 .dashboard {
   max-width: 600px;
   margin: 0 auto;
