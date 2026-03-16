@@ -7,13 +7,12 @@ import {
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBnle558Stuv-yLnImsZxGrhF_H4X2prdc",
-  authDomain: "todo-list-nextsolve.firebaseapp.com",
-  projectId: "todo-list-nextsolve",
-  storageBucket: "todo-list-nextsolve.firebasestorage.app",
-  messagingSenderId: "923355504459",
-  appId: "1:923355504459:web:b4ea49628ee362b3bad2ce",
-  measurementId: "G-BHXYRZ2MRQ",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
